@@ -2,6 +2,7 @@ const
   express = require('express'),
   mongoose = require('mongoose'),
   Post = mongoose.model('Post'),
+  Comment = mongoose.model('Comment'),
   authMiddleware = require('../utility/authMiddleware');
 
 var router = express.Router();
@@ -69,6 +70,31 @@ router.route('/post/:id/like')
 			}
 		});
 	});
+
+router.post('/comment/:post_id', function(req, res){
+  if(!req.body.text)
+    return res.status(422).send({message: 'Missing params'});
+
+  Post.findById(req.params.post_id, function(err, post){
+    if(err)
+      return res.status(500).send({message: 'OOPS something went wrong'});
+
+    if(!post)
+      return res.status(404).send({message: 'Post not found'});
+
+    newComment = new Comment();
+    newComment.postID = post._id;
+    newComment.text = req.body.text;
+    newComment.userID = req.deco.userID;
+    newComment.username = req.deco.name;
+
+    newComment.save(function(err, new_comment){
+      if(err)
+        return res.status(500).send({message: 'OOPS something went wrong'});
+      return res.status(201).send({message: 'Comment created'});
+    });
+  });
+});
 
 
 module.exports = router
