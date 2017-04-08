@@ -14,7 +14,11 @@ require('./models/user');
 
 //connect to mongoDB
 mongoose.connect(config.getdbPath());
+
+config.jwtInit();
+
 var api = require('./routes/api');
+var auth = require('./routes/auth');
 
 var app = express();
 
@@ -31,6 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1', api);
+app.use('/api/v1/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
