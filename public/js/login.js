@@ -14,8 +14,7 @@ function login(){
       location.reload();
     },
     error: function(){
-      //TODO
-      alert("Error")
+      showError(document.getElementById('login_error'));
     }
   });
 }

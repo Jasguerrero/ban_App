@@ -31,6 +31,9 @@ function renderAuth(){
   app.innerHTML =
   '<div class="row">'+
     '<div class="col-md-8 col-md-offset-2">'+
+      '<div class="alert alert-danger" style="display: none;" id="login_error">'+
+        '<strong>Email or password incorrect!</strong>'+
+      '</div>'+
       '<form class="form-vertical" role="form">'+
         '<input type="text" placeholder="email" class="form-control" id="login_email"/>'+
         '<input type="password" placeholder="password" class="form-control" id="login_password"/>'+
@@ -38,15 +41,4 @@ function renderAuth(){
       '</form>'+
     '<div>'+
   '</div>';
-}
-
-function readToken(){
-  var nameEQ = 'token' + "=";
-  var co = document.cookie.split(';');
-  for(var i=0;i < co.length;i++) {
-      var c = co[i];
-      while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-  }
-  return null;
 }
