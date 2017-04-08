@@ -101,9 +101,13 @@ router.post('/comment/:post_id', function(req, res){
   });
 });
 
-/*router.get('/post/:id/comments', function(req, res){
-  Comment.find({postID: req.params.id}, {created_at: 1, text: 1, username: 1})
-})*/
+router.get('/post/:id/comments', function(req, res){
+  Comment.find({postID: req.params.id}, {created_at: 1, text: 1, username: 1}).sort({created_at: 1}).exec(function(err, comments){
+    if(err)
+      return res.status(500).send({message: 'OOPS something went wrong'});
+    return res.send(comments);
+  });
+});
 
 
 module.exports = router
