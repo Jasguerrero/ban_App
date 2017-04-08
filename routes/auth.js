@@ -45,4 +45,28 @@ router.post('/register', function(req, res){
   });
 });
 
+router.post('/login', function(req, res){
+  if(!req.body.email){
+    return res.status(403).send({message: 'Invalid email'});
+  }
+  User.findOne({email: req.body.email}, function(err, user){
+    if(err){
+      return res.status(500).send({message: 'OOPS something went wrong'});
+    }
+    if(!user){
+      return res.status(403).send({message: 'User with email ' + req.body.email + ' not found'});
+    }
+    if(!req.body.password || !isValidPassword(user, req.body.password)){
+      return res.status(403).send({message: 'Invalid password'});
+    }
+    util.createJWT(req.body.email, req.body.name, function(token){
+      return res.send({token: token});
+    });
+  });
+});
+
+var isValidPassword = function(user, password){
+  return bCrypt.compareSync(password, user.password);
+}
+
 module.exports = router
