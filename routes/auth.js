@@ -34,13 +34,13 @@ router.post('/register', function(req, res){
     newUser.password = bCrypt.hashSync(req.body.password, saltRounds);
     newUser.name = req.body.name;
 
-    newUser.save(function(err){
+    newUser.save(function(err, new_user){
       if(err){
         throw err;
       }
-    });
-    util.createJWT(req.body.email, req.body.name, function(token){
-      return res.send({token: token});
+      util.createJWT(new_user.email, new_user.name, new_user._id, function(token){
+        return res.send({token: token});
+      });
     });
   });
 });
@@ -59,7 +59,7 @@ router.post('/login', function(req, res){
     if(!req.body.password || !isValidPassword(user, req.body.password)){
       return res.status(403).send({message: 'Invalid password'});
     }
-    util.createJWT(req.body.email, req.body.name, function(token){
+    util.createJWT(user.email, user.name, user._id, function(token){
       return res.send({token: token});
     });
   });
