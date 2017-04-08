@@ -8,6 +8,8 @@ const
   cookieParser = require('cookie-parser'),
   mongoose = require('mongoose');
 
+//Models
+require('./models/user');
 
 var api = require('./routes/api');
 
