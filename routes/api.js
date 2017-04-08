@@ -91,10 +91,19 @@ router.post('/comment/:post_id', function(req, res){
     newComment.save(function(err, new_comment){
       if(err)
         return res.status(500).send({message: 'OOPS something went wrong'});
-      return res.status(201).send({message: 'Comment created'});
+      post.comments_count += 1;
+      post.save(function(err, new_post){
+        if(err)
+          return res.status(500).send({message: 'OOPS something went wrong'});
+        return res.status(201).send({message: 'Comment created'});
+      });
     });
   });
 });
+
+/*router.get('/post/:id/comments', function(req, res){
+  Comment.find({postID: req.params.id}, {created_at: 1, text: 1, username: 1})
+})*/
 
 
 module.exports = router
