@@ -7,6 +7,7 @@ NodeJS(v6.X)
 
 ```
 To boot up
+$ cp config/default.json.ex config/default.json
 $ npm install
 To run in development $ npm start
 ```

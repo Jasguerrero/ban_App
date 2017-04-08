@@ -6,11 +6,14 @@ const
   logger = require('morgan'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
-  mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  config = require('./config/settings');
 
 //Models
 require('./models/user');
 
+//connect to mongoDB
+mongoose.connect(config.getdbPath());
 var api = require('./routes/api');
 
 var app = express();
