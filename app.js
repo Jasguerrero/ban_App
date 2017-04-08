@@ -12,6 +12,7 @@ const
 //Models
 require('./models/user');
 require('./models/post');
+require('./models/comment');
 
 //connect to mongoDB
 mongoose.connect(config.getdbPath());
