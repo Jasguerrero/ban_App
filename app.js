@@ -19,6 +19,7 @@ mongoose.connect(config.getdbPath());
 
 config.jwtInit();
 
+var index = require('./routes/index')
 var auth = require('./routes/auth');
 var api = require('./routes/api');
 
@@ -36,6 +37,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', index);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1', api);
 
