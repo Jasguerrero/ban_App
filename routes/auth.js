@@ -14,7 +14,8 @@ router.post('/register', function(req, res){
   }
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if(!re.test(req.body.email)){
-    return res.status(422).send({message: 'Invalid email'});
+    //461 for admin purposes
+    return res.status(461).send({message: 'Invalid email'});
   }
 
   if(req.body.password != req.body.confirm_password){
@@ -57,7 +58,8 @@ router.post('/login', function(req, res){
       return res.status(403).send({message: 'User with email ' + req.body.email + ' not found'});
     }
     if(!req.body.password || !isValidPassword(user, req.body.password)){
-      return res.status(403).send({message: 'Invalid password'});
+      //460 for admin to know invalid password
+      return res.status(460).send({message: 'Invalid password'});
     }
     util.createJWT(user.email, user.name, user._id, function(token){
       return res.send({token: token});

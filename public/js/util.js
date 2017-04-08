@@ -1,7 +1,10 @@
 function showError(div){
-  div.style.display = 'block'
+  div.style.display = 'block';
 }
 
+function hideError(div){
+  div.style.display = 'none';
+}
 function readToken(){
   var nameEQ = 'token' + "=";
   var co = document.cookie.split(';');
