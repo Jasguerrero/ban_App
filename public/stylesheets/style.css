@@ -1,0 +1,55 @@
+body {
+  padding: 20px;
+  background-color: #EEEEEE;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+
+input {
+  display: block;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+.card0 {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 0px solid #E9EBF8;
+  padding: 20px;
+  background-color: #E9EBF8;
+}
+
+.fullContainer {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 0px solid #FEFFFE;
+  padding: 20px;
+  background-color: #FEFFFE;
+}
+
+.card1 {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 0px solid #CAE5FF;
+  padding: 20px;
+  background-color: #CAE5FF;
+}
+
+.banner {
+  text-align: center;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 0px solid #81A4CD;
+  padding: 20px;
+  background-color: #81A4CD;
+}
