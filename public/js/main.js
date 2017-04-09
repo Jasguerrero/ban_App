@@ -38,8 +38,12 @@ function initPosts(data){
       '<div class="row">'+
         '<div class="col-md-2 col-xs-3" onclick="sendLike(\''+data[i]._id+'\')"><p><span id="likes_count">'+data[i].likes_count+'</span> <i class="fa fa-heart" aria-hidden="true"></i><p>'+
         '</div>'+
-        '<div class="col-md-2 col-xs-3"><p>'+data[i].comments_count+' <i><i class="fa fa-comments" aria-hidden="true"></i></p>'+
+        '<div class="col-md-2 col-xs-3" onclick="showComments(\''+data[i]._id+'\')"><p>'+data[i].comments_count+' <i><i class="fa fa-comments" aria-hidden="true"></i></p>'+
         '</div>'+
+      '</div>'+
+      '<div class="row">'+
+      '<div class="col-md-12" id="comment_section_'+data[i]._id+'" style="display: none;" >'+
+      '</div>'+
       '</div>'+
     '</div>';
   }
@@ -92,5 +96,24 @@ function renderRegister(){
       '</form>'+
       '<a><h4 onclick="renderAuth()">Login</h4></a>'+
     '<div>'+
+  '</div>';
+}
+
+function renderComments(comments, postID, section){
+  section.innerHTML = "";
+
+  for(var i = 0; i<comments.length; i++){
+    section.innerHTML +=
+    '<div class="row card_comments">'+
+      '<div class="col-md-12">'+comments[i].text+'</div>'+
+      '<div class="col-md-12 align-text-right">'+comments[i].username+'</div>'+
+    '</div>';
+  }
+  section.innerHTML +=
+  '<div class="row card_comments">'+
+    '<div class="form-vertical" role="form">'+
+      '<input class="form-control" placeholder="Comment!!" id="text_comment_'+postID+'"></input>'+
+      '<button type="button" class="btn btn-info form-control" onclick="postComment(\''+postID+'\')">Share</button>'+
+    '</div>'+
   '</div>';
 }

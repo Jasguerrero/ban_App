@@ -5,6 +5,15 @@ function showError(div){
 function hideError(div){
   div.style.display = 'none';
 }
+
+function showHide(div){
+  if(div.style.display == 'none'){
+    showError(div);
+  }
+  else{
+    hideError(div);
+  }
+}
 function readToken(){
   var nameEQ = 'token' + "=";
   var co = document.cookie.split(';');
@@ -36,7 +45,7 @@ function sendLike(postID){
 }
 
 function post(){
-  var text = document.getElementById('post_text').innerHTML;
+  var text = document.getElementById('post_text').value;
   var json = {"text": text};
   $.ajax({
     dataType: 'json',
@@ -55,6 +64,44 @@ function post(){
       else{
         renderAuth();
       }
+    }
+  });
+}
+
+function showComments(postID){
+  var section = document.getElementById('comment_section_'+postID);
+  if(section.style.display == 'none'){
+    $.ajax({
+      dataType: 'json',
+      url: '/api/v1/post/'+postID+'/comments?token=' + readToken(),
+      type: 'GET',
+      cache: true,
+      success: function(data, textStatus, xhr){
+        console.log(data);
+        renderComments(data, postID, section);
+      },
+      error: function(data){
+      }
+    });
+  }
+  showHide(section)
+}
+
+function postComment(postID){
+  var text = document.getElementById('text_comment_'+postID).value.toString();
+  var json = {'text': text};
+
+  $.ajax({
+    dataType: 'json',
+    url: '/api/v1/comment/'+postID+'?token=' + readToken(),
+    contentTypeString: 'application/x-www-form-urlencoded',
+    type: 'POST',
+    data: json,
+    cache: true,
+    success: function(data, textStatus, xhr){
+      location.reload();
+    },
+    error: function(data){
     }
   });
 }

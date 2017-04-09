@@ -23,6 +23,16 @@ input {
   background-color: #E9EBF8;
 }
 
+.card_comments {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 0px solid white;
+  padding: 10px;
+  background-color: white;
+}
+
 .fullContainer {
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
@@ -59,5 +69,9 @@ input {
 }
 
 blockquote{
+  text-align: right;
+}
+
+.align-text-right{
   text-align: right;
 }
