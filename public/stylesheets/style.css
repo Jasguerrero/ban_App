@@ -57,3 +57,7 @@ input {
 .registerLink {
   margin-top: 10px;
 }
+
+blockquote{
+  text-align: right;
+}

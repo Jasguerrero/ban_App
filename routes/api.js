@@ -46,7 +46,7 @@ router.route('/posts')
   });
 
 router.route('/post/:id/like')
-	.get(function(req, res){
+	.post(function(req, res){
 		Post.findById(req.params.id, function(err, post){
 			if(err){
 				return res.status(422).send({message: "Invalid ID"});
@@ -57,16 +57,16 @@ router.route('/post/:id/like')
 
 			var indexarr = post.likesArr.indexOf(req.deco.userID);
 			if(indexarr == -1){
-				post.likes += 1;
+				post.likes_count += 1;
 				post.likesArr.push(req.deco.userID);
 				post.save();
-				return res.json({message: "Post liked"});
+				return res.send({message: "Post liked"});
 			}
 			else{
 				post.likesArr.splice(indexarr, 1);
-				post.likes -= 1;
+				post.likes_count -= 1;
 				post.save();
-				return res.status(201).send({message: "Comment disliked"});
+				return res.status(201).send({message: "Post disliked"});
 			}
 		});
 	});
