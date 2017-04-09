@@ -34,3 +34,27 @@ function sendLike(postID){
     }
   });
 }
+
+function post(){
+  var text = document.getElementById('post_text').innerHTML;
+  var json = {"text": text};
+  $.ajax({
+    dataType: 'json',
+    url: '/api/v1/posts?token=' + readToken(),
+    contentTypeString: 'application/x-www-form-urlencoded',
+    type: 'POST',
+    data: json,
+    cache: true,
+    success: function(data, textStatus, xhr){
+      location.reload();
+    },
+    error: function(data){
+      if(data.status == 422){
+        showError(document.getElementById('post_error_text'));
+      }
+      else{
+        renderAuth();
+      }
+    }
+  });
+}

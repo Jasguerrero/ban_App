@@ -22,6 +22,9 @@ function initPosts(data){
   app.innerHTML =
   '<div class="card1">'+
     '<h3>Share something</h3>'+
+    '<div class="alert alert-danger" style="display: none;" id="post_error_text">'+
+      '<strong>Text needed!</strong>'+
+    '</div>'+
     '<form class="form-vertical" role="form">'+
       '<textarea id="post_text" cols="40" rows="5" class="form-control"></textarea>'+
       '<button type="button" class="btn btn-info form-control" onclick="post()">Post</button>'+
