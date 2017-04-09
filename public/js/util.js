@@ -26,16 +26,16 @@ function readToken(){
 }
 
 function sendLike(postID){
-  var likes_count = parseInt(document.getElementById('likes_count').innerHTML);
+  var likes_count = parseInt(document.getElementById('likes_count_'+postID).innerHTML);
   $.ajax({
     url: '/api/v1/post/'+postID+'/like?token=' + readToken(),
     type: 'POST',
     cache: true,
     success: function(data, textStatus, xhr){
       if(xhr.status == 200)
-        document.getElementById('likes_count').innerHTML = likes_count + 1;
+        document.getElementById('likes_count_'+postID).innerHTML = likes_count + 1;
       else{
-        document.getElementById('likes_count').innerHTML = likes_count - 1;
+        document.getElementById('likes_count_'+postID).innerHTML = likes_count - 1;
       }
     },
     error: function(d){

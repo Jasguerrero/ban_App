@@ -20,7 +20,7 @@ function getPosts(token){
 function initPosts(data){
   var app = document.getElementById('app');
   app.innerHTML =
-  '<div class="card1">'+
+  '<div class="postCard">'+
     '<h3>Share something</h3>'+
     '<div class="alert alert-danger" style="display: none;" id="post_error_text">'+
       '<strong>Text needed!</strong>'+
@@ -36,7 +36,7 @@ function initPosts(data){
       '<h4>'+ data[i].text + '</h4>'+
       '<blockquote><footer>'+data[i].username+'<footer></blockquote>'+
       '<div class="row">'+
-        '<div class="col-md-2 col-xs-3" onclick="sendLike(\''+data[i]._id+'\')"><p><span id="likes_count">'+data[i].likes_count+'</span> <i class="fa fa-heart" aria-hidden="true"></i><p>'+
+        '<div class="col-md-2 col-xs-3" onclick="sendLike(\''+data[i]._id+'\')"><p><span id="likes_count_'+data[i]._id+'">'+data[i].likes_count+'</span> <i class="fa fa-heart" aria-hidden="true"></i><p>'+
         '</div>'+
         '<div class="col-md-2 col-xs-3" onclick="showComments(\''+data[i]._id+'\')"><p>'+data[i].comments_count+' <i><i class="fa fa-comments" aria-hidden="true"></i></p>'+
         '</div>'+
