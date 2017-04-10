@@ -25,10 +25,7 @@ var storage = multer.diskStorage({
 			+'_'+ Date.now() + extension;
 
 		callback(null, fileName);
-	},
-  limits: {
-    fileSize: 6000
-  }
+	}
 });
 
 var upload = multer({storage : storage, fileFilter: function(req,file,cb){
