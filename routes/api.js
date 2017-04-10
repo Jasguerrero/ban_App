@@ -51,7 +51,7 @@ router.route('/posts')
   })
   .post(function(req, res){
     upload(req, res, function(err){
-      if(!req.body.text && (req.files == undefined)){
+      if(!req.body.text || (req.file == undefined)){
         return res.status(422).send({message: 'Missing params'})
       }
       newPost = new Post();

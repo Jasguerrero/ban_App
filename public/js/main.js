@@ -23,7 +23,7 @@ function initPosts(data){
   '<div class="postCard">'+
     '<h3>Share your artwork!</h3>'+
     '<div class="alert alert-danger" style="display: none;" id="post_error_text">'+
-      '<strong>Text needed!</strong>'+
+      '<strong>Text and image needed!</strong>'+
     '</div>'+
     '<form class="form-vertical" role="form">'+
       '<input type="file" name="file" class="form-control" accept="image/*" id="image">'+
