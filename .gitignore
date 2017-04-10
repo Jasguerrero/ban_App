@@ -1,3 +1,6 @@
 /node_modules
 npm-debug.log
 /config/default.json
+/uploads/*.jpeg
+/uploads/*.jpg
+/uploads/*.png

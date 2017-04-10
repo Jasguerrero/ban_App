@@ -21,11 +21,12 @@ function initPosts(data){
   var app = document.getElementById('app');
   app.innerHTML =
   '<div class="postCard">'+
-    '<h3>Share something</h3>'+
+    '<h3>Share your artwork!</h3>'+
     '<div class="alert alert-danger" style="display: none;" id="post_error_text">'+
       '<strong>Text needed!</strong>'+
     '</div>'+
     '<form class="form-vertical" role="form">'+
+      '<input type="file" name="file" class="form-control" accept="image/*" id="image">'+
       '<textarea id="post_text" cols="40" rows="5" class="form-control"></textarea>'+
       '<button type="button" class="btn btn-info form-control" onclick="post()">Post</button>'+
     '</form>'+
@@ -33,6 +34,7 @@ function initPosts(data){
   for(var i = 0; i<data.length; i++){
     app.innerHTML +=
     '<div class=card'+i%2+'>'+
+      '<img src="'+data[i].image+'" class="img-responsive center-block">'+
       '<h4>'+ data[i].text + '</h4>'+
       '<blockquote><footer>'+data[i].username+'<footer></blockquote>'+
       '<div class="row">'+

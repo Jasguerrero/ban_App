@@ -3,7 +3,9 @@ const
   mongoose = require('mongoose'),
   Post = mongoose.model('Post'),
   Comment = mongoose.model('Comment'),
-  authMiddleware = require('../utility/authMiddleware');
+  authMiddleware = require('../utility/authMiddleware'),
+  multer = require('multer'),
+  path = require('path');
 
 var router = express.Router();
 
@@ -13,9 +15,31 @@ router.use(function(req, res, next){
   });
 });
 
+var storage = multer.diskStorage({
+	destination: function(req, file, callback){
+		callback(null, './uploads');
+	},
+	filename: function(req, file, callback){
+		var extension = path.extname(file.originalname);
+		var fileName = path.basename(file.originalname, extension)
+			+'_'+ Date.now() + extension;
+
+		callback(null, fileName);
+	},
+  limits: {
+    fileSize: 6000
+  }
+});
+
+var upload = multer({storage : storage, fileFilter: function(req,file,cb){
+	cb(null, (path.extname(file.originalname) == '.png' ||
+  path.extname(file.originalname) == '.jpg' ||
+  path.extname(file.originalname) == '.jpeg'));
+}}).single('file');
+
 router.route('/posts')
   .get(function(req, res){
-    Post.find({}, {created_at: 1, text: 1, likes_count: 1, likesArr: 1, comments_count: 1, username: 1}).sort({created_at: -1}).exec(function(err, data){
+    Post.find({}, {created_at: 1, text: 1, image: 1, likes_count: 1, likesArr: 1, comments_count: 1, username: 1}).sort({created_at: -1}).exec(function(err, data){
       if(err)
         return res.status(500).send({message: 'OOPS something went wrong'});
 
@@ -29,19 +53,22 @@ router.route('/posts')
     });
   })
   .post(function(req, res){
-    if(!req.body.text){
-      return res.status(422).send({message: 'Missing params'})
-    }
-    newPost = new Post();
-    newPost.text = req.body.text;
-    newPost.userID = req.deco.userID;
-    newPost.username = req.deco.name;
-
-    newPost.save(function(err, new_post){
-      if(err){
-        return res.status(422).send({message: 'Validation failed'});
+    upload(req, res, function(err){
+      if(!req.body.text && (req.files == undefined)){
+        return res.status(422).send({message: 'Missing params'})
       }
-      return res.status(201).send({message: 'Post created'});
+      newPost = new Post();
+      newPost.text = req.body.text;
+      newPost.image = req.file.filename;
+      newPost.userID = req.deco.userID;
+      newPost.username = req.deco.name;
+
+      newPost.save(function(err, new_post){
+        if(err){
+          return res.status(422).send({message: 'Validation failed'});
+        }
+        return res.status(201).send({message: 'Post created'});
+      });
     });
   });
 

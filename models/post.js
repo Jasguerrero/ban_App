@@ -26,6 +26,10 @@ var postSchema = new Schema({
     type: Boolean,
     default: false
   },
+  image: {
+    type: String,
+    required: true
+  },
   comments_count: {
     type: Number,
     default: 0

@@ -45,15 +45,20 @@ function sendLike(postID){
 }
 
 function post(){
-  var text = document.getElementById('post_text').value;
-  var json = {"text": text};
+  var formData = new FormData();
+  formData.append('file', document.getElementById("image").files[0]);
+  formData.append('text', document.getElementById("post_text").value);
+
   $.ajax({
     dataType: 'json',
     url: '/api/v1/posts?token=' + readToken(),
-    contentTypeString: 'application/x-www-form-urlencoded',
+    contentType: false,
     type: 'POST',
-    data: json,
-    cache: true,
+    async: false,
+    cache: false,
+    data: formData,
+    cache: false,
+    processData: false,
     success: function(data, textStatus, xhr){
       location.reload();
     },
